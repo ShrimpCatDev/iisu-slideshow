@@ -30,3 +30,7 @@ html,body{height:100%;margin:0}
   100%{background-position:100% 50%}
 }
 
+/* Make images responsive on small viewports */
+@media (max-width:600px){
+  .slideshow{height:60vh}
+}
