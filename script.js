@@ -2,38 +2,26 @@ const SLIDE_DURATION = 10000; // 10 seconds visible
 const container = document.getElementById('slideshow');
 
 async function fetchImageList() {
-  // Try images/images.json first
+  // Strict mode: only load images from images/images.json
   try {
     const resp = await fetch('images/images.json', {cache: 'no-store'});
-    if (resp.ok) return resp.json();
+    if (resp.ok) {
+      const json = await resp.json();
+      if (Array.isArray(json) && json.length) {
+        // Normalize entries to include the images/ prefix when needed
+        return json.map(p => p.startsWith('images/') ? p : 'images/' + p.replace(/^\/+/, ''));
+      }
+    }
   } catch (e) {
-    // ignore
+    // ignore and fall through to fallback
   }
 
-  // Fallback: fetch directory listing and parse anchors (works with python -m http.server)
-  try {
-    const resp = await fetch('images/');
-    if (!resp.ok) throw new Error('no listing');
-    const html = await resp.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const anchors = Array.from(doc.querySelectorAll('a'));
-    const exts = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
-    const files = anchors
-      .map(a => a.getAttribute('href'))
-      .filter(h => h && exts.some(ext => h.toLowerCase().endsWith(ext)))
-      .map(h => 'images/' + h.replace(/^\/+/, ''));
-    if (files.length) return files;
-  } catch (e) {
-    // ignore
-  }
-
-  // Last resort: hardcoded list (keeps previous behavior)
-  //return [
-    //'images/442e4e9dadb747774033c7c9042fc662.jpg',
-    //'images/a45a96e85e4aaf7d9fb9747bcfa4ed26.jpg',
-    //'images/eec540bf4a4aeb455a4125e4bc0ddb95.jpg'
-  //];
+  // Fallback hardcoded list if images/images.json is missing or invalid
+  return [
+    'images/442e4e9dadb747774033c7c9042fc662.jpg',
+    'images/a45a96e85e4aaf7d9fb9747bcfa4ed26.jpg',
+    'images/eec540bf4a4aeb455a4125e4bc0ddb95.jpg'
+  ];
 }
 
 function createSlide(src) {
