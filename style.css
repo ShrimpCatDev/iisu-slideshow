@@ -1,0 +1,36 @@
+/* Full-viewport slideshow styles */
+html,body{height:100%;margin:0}
+
+.slideshow{
+  position:relative;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  background:#000;
+}
+.slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:50% 50%;
+  opacity:0;
+  transition:opacity 1s ease;
+  will-change:opacity, background-position;
+  z-index:0;
+}
+/* Current slide fades in and pans left across the viewport (no zoom) */
+.slide.current{
+  opacity:1;
+  z-index:2;
+  animation:slide-pan-left 10s linear forwards;
+}
+
+@keyframes slide-pan-left{
+  0%{background-position:50% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* Make images responsive on small viewports */
+@media (max-width:600px){
+  .slideshow{height:60vh}
+}
