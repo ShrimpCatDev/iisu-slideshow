@@ -29,11 +29,11 @@ async function fetchImageList() {
   }
 
   // Last resort: hardcoded list (keeps previous behavior)
-  return [
-    'images/442e4e9dadb747774033c7c9042fc662.jpg',
-    'images/a45a96e85e4aaf7d9fb9747bcfa4ed26.jpg',
-    'images/eec540bf4a4aeb455a4125e4bc0ddb95.jpg'
-  ];
+  //return [
+    //'images/442e4e9dadb747774033c7c9042fc662.jpg',
+    //'images/a45a96e85e4aaf7d9fb9747bcfa4ed26.jpg',
+    //'images/eec540bf4a4aeb455a4125e4bc0ddb95.jpg'
+  //];
 }
 
 function createSlide(src) {

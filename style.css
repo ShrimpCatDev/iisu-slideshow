@@ -11,7 +11,7 @@ html,body{height:100%;margin:0}
 .slide{
   position:absolute;
   inset:0;
-  background-size:cover;
+  background-size:120%;
   background-position:50% 50%;
   opacity:0;
   transition:opacity 1s ease;
@@ -26,8 +26,8 @@ html,body{height:100%;margin:0}
 }
 
 @keyframes slide-pan-left{
-  0%{background-position:50% 50%}
-  100%{background-position:0% 50%}
+  0%{background-position:0% 50%}
+  100%{background-position:100% 50%}
 }
 
 /* Make images responsive on small viewports */
