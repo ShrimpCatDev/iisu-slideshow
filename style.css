@@ -34,6 +34,25 @@ html,body{height:100%;margin:0}
   100%{background-position:100% 50%}
 }
 
+/* Use an actual <img> inside slides so hosting containers control sizing reliably */
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transform-origin:50% 50%;
+}
+
+/* Pan/scale animation applied to the image for a subtle motion */
+.slide.current img{
+  animation:pan-scale 10s linear forwards;
+}
+
+@keyframes pan-scale{
+  0%{transform:translateX(0) scale(1)}
+  100%{transform:translateX(-10%) scale(1.03)}
+}
+
 /* Make images responsive on small viewports */
 @media (max-width:600px){
   /* Constrain maximum height on small viewports instead of forcing VH */

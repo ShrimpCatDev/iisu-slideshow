@@ -25,12 +25,18 @@ async function fetchImageList() {
 }
 
 function createSlide(src) {
-  const img = new Image();
-  img.src = src; // preload
+  // preload
+  const preload = new Image();
+  preload.src = src;
 
   const el = document.createElement('div');
   el.className = 'slide';
-  el.style.backgroundImage = `url(${src})`;
+
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = '';
+  el.appendChild(img);
+
   container.appendChild(el);
   return el;
 }
